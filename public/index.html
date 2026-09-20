@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Voyage AI</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">✈</div>
+          <div>
+            <p class="eyebrow">Travel assistant</p>
+            <h2>Voyage AI</h2>
+          </div>
+        </div>
+
+        <div class="quick-actions">
+          <button type="button" class="chip">Beach escape</button>
+          <button type="button" class="chip">Mountain trip</button>
+          <button type="button" class="chip">City break</button>
+        </div>
+
+        <div class="stats-card">
+          <p>Saved trips</p>
+          <h3>12</h3>
+          <span>Curated just for you</span>
+        </div>
+      </aside>
+
+      <main class="chat-panel">
+        <header class="chat-header">
+          <div class="header-info">
+            <div class="avatar">✦</div>
+            <div>
+              <p class="eyebrow">AI planner</p>
+              <h1>Travel Concierge</h1>
+            </div>
+          </div>
+          <span class="status-dot">Online</span>
+        </header>
+
+        <div id="chat-box" class="chat-box" aria-live="polite"></div>
+
+        <form id="chat-form" autocomplete="off">
+          <input
+            type="text"
+            id="user-input"
+            placeholder="Ask for a dream trip..."
+            aria-label="Your travel question"
+            required
+          />
+          <button type="submit">Send</button>
+        </form>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
