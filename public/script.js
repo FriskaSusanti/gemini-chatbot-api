@@ -4,10 +4,60 @@ const chatBox = document.getElementById('chat-box');
 
 let conversation = [];
 
+function renderBotMessage(element, text) {
+  element.replaceChildren();
+
+  const lines = text.split(/\r?\n/);
+  let list;
+
+  const appendInlineContent = (container, value) => {
+    const parts = value.split(/(\*\*[^*]+\*\*)/g);
+
+    parts.forEach((part) => {
+      if (part.startsWith('**') && part.endsWith('**')) {
+        const strong = document.createElement('strong');
+        strong.textContent = part.slice(2, -2);
+        container.appendChild(strong);
+      } else if (part) {
+        container.appendChild(document.createTextNode(part));
+      }
+    });
+  };
+
+  lines.forEach((line) => {
+    const trimmedLine = line.trim();
+    const bulletMatch = trimmedLine.match(/^[-*]\s+(.+)/);
+    const headingMatch = trimmedLine.match(/^#{1,3}\s+(.+)/);
+
+    if (bulletMatch) {
+      if (!list) {
+        list = document.createElement('ul');
+        element.appendChild(list);
+      }
+
+      const item = document.createElement('li');
+      appendInlineContent(item, bulletMatch[1]);
+      list.appendChild(item);
+      return;
+    }
+
+    list = null;
+    if (!trimmedLine) return;
+
+    const content = document.createElement(headingMatch ? 'h3' : 'p');
+    appendInlineContent(content, headingMatch ? headingMatch[1] : trimmedLine);
+    element.appendChild(content);
+  });
+}
+
 function appendMessage(sender, text) {
   const msg = document.createElement('div');
   msg.classList.add('message', sender);
-  msg.textContent = text;
+  if (sender === 'bot') {
+    renderBotMessage(msg, text);
+  } else {
+    msg.textContent = text;
+  }
   chatBox.appendChild(msg);
   chatBox.scrollTop = chatBox.scrollHeight;
   return msg;
@@ -19,7 +69,7 @@ function replaceThinkingMessage(text) {
   );
 
   if (thinkingMsg) {
-    thinkingMsg.textContent = text;
+    renderBotMessage(thinkingMsg, text);
     thinkingMsg.dataset.thinking = 'false';
     return;
   }

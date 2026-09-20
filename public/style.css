@@ -175,9 +175,34 @@ body {
   padding: 12px 16px;
   border-radius: 18px;
   line-height: 1.5;
-  white-space: pre-wrap;
   word-break: break-word;
   box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
+}
+
+.message p,
+.message h3 {
+  margin: 0;
+}
+
+.message p + p,
+.message p + ul,
+.message ul + p {
+  margin-top: 12px;
+}
+
+.message h3 {
+  color: var(--blue-deep);
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.message ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.message li + li {
+  margin-top: 7px;
 }
 
 .message.user {
